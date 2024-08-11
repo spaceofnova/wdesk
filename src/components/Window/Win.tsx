@@ -1,108 +1,55 @@
-import React, { useRef } from "react";
+import { useApps } from "@/contexts/AppsContext";
+import { useSettings } from "@/contexts/SettingsContext";
+import { useWindows } from "@/contexts/WindowsContext";
+import { WindowType } from "@/types";
+import { domAnimation, LazyMotion, m } from "framer-motion";
+import { Rnd } from "react-rnd";
 
-import PanelHeader from "./WinHeader";
-import Resizer from "./resizer";
-
-import { Direction } from "./resizer/constants";
-
-import "./styles.css";
-import { AnimatePresence, motion } from "framer-motion";
-
-const Panel = ({ children }: { children: React.ReactNode }) => {
-  const panelRef = useRef(null);
-
-  const handleDrag = (movementX, movementY) => {
-    const panel = panelRef.current;
-    if (!panel) return;
-
-    const { x, y } = panel.getBoundingClientRect();
-
-    panel.style.left = `${x + movementX}px`;
-    panel.style.top = `${y + movementY}px`;
-  };
-
-  const handleResize = (direction, movementX, movementY) => {
-    const panel = panelRef.current;
-    if (!panel) return;
-
-    const { width, height, x, y } = panel.getBoundingClientRect();
-
-    const resizeTop = () => {
-      panel.style.height = `${height - movementY}px`;
-      panel.style.top = `${y + movementY}px`;
-    };
-
-    const resizeRight = () => {
-      panel.style.width = `${width + movementX}px`;
-    };
-
-    const resizeBottom = () => {
-      panel.style.height = `${height + movementY}px`;
-    };
-
-    const resizeLeft = () => {
-      panel.style.width = `${width - movementX}px`;
-      panel.style.left = `${x + movementX}px`;
-    };
-
-    switch (direction) {
-      case Direction.TopLeft:
-        resizeTop();
-        resizeLeft();
-        break;
-
-      case Direction.Top:
-        resizeTop();
-        break;
-
-      case Direction.TopRight:
-        resizeTop();
-        resizeRight();
-        break;
-
-      case Direction.Right:
-        resizeRight();
-        break;
-
-      case Direction.BottomRight:
-        resizeBottom();
-        resizeRight();
-        break;
-
-      case Direction.Bottom:
-        resizeBottom();
-        break;
-
-      case Direction.BottomLeft:
-        resizeBottom();
-        resizeLeft();
-        break;
-
-      case Direction.Left:
-        resizeLeft();
-        break;
-
-      default:
-        break;
-    }
-  };
-
+const Win = ({ window }: { window: WindowType }) => {
+  const { apps } = useApps();
+  const { settings } = useSettings();
+  const { bringWindowToFront, closeWindow } = useWindows();
+  const app = apps.find((app) => app.id === window.id);
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0, scale: 0.75 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="panel"
-        ref={panelRef}
+    <LazyMotion features={domAnimation}>
+      <Rnd
+        dragHandleClassName="drag"
+        minHeight={100}
+        minWidth={100}
+        default={{
+          x: 0,
+          y: 0,
+          width: 300,
+          height: 300,
+        }}
+        style={{ zIndex: window.zIndex || 0 }}
+        onMouseDown={() => bringWindowToFront(window.id)}
       >
-        <div className="panel__container">
-          <Resizer onResize={handleResize} />
-          <PanelHeader onDrag={handleDrag} />
-          <div className="panel__content">{children}</div>
-        </div>
-      </motion.div>
-    </AnimatePresence>
+        <m.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.9 }}
+          transition={{
+            duration: 0.3,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="w-full h-full flex flex-col bg-black/70 text-white overflow-hidden"
+          style={{
+            backdropFilter: settings.blur ? `blur(24px)` : undefined,
+          }}
+          id="container"
+        >
+          <div className="drag h-8 flex items-center justify-between px-2">
+            <div>{app?.name}</div>
+            <div onClick={() => closeWindow(window.id)}>Close</div>
+          </div>
+          <div className="w-full h-[calc(100%-2rem)] relative">
+            {app?.component}
+          </div>
+        </m.div>
+      </Rnd>
+    </LazyMotion>
   );
 };
 
-export default Panel;
+export default Win;
