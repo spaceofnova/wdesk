@@ -1,0 +1,23 @@
+import { StoreApp } from "@/types";
+import { InfoIcon } from "lucide-react";
+import { ExampleApp } from ".";
+
+const Config: StoreApp = {
+  name: "Example App",
+  id: "com.example.app",
+  author: "spaceofnova",
+  icons: {
+    scalable: <InfoIcon />,
+  },
+  description: "Example app description",
+  versions: {
+    "2.0.0": {
+      component: <ExampleApp />,
+    },
+    "1.0.0": {
+      component: <div>Example 1.0.0</div>,
+    },
+  },
+};
+
+export default Config;

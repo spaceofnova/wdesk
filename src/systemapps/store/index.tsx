@@ -1,11 +1,17 @@
 import { useApps } from "@/contexts/AppsContext";
 import installableApps from "@/store/installableApps";
 import { StoreApp } from "@/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 export default function Store() {
   const { installApp, checkIfAppIsInstalled, uninstallApp } = useApps();
   const [app, setApp] = useState<StoreApp | undefined>();
   const [selectedVersion, setSelectedVersion] = useState<string>("");
+
+  useEffect(() => {
+    if (app) {
+      setSelectedVersion(Object.keys(app.versions)[0]);
+    }
+  }, [app]);
   return (
     <div>
       <h1 className="text-2xl font-bold">Store</h1>
@@ -40,6 +46,9 @@ export default function Store() {
             name="version"
             onChange={(e) => setSelectedVersion(e.target.value)}
           >
+            <option key={"latest"} value={Object.keys(app.versions)[0]}>
+              Latest
+            </option>
             {Object.keys(app.versions).map((version) => (
               <option key={version} value={version}>
                 {version}

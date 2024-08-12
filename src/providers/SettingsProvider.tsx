@@ -9,7 +9,7 @@ const SettingsProvider = ({ children }: { children: React.ReactNode }) => {
     showDock?: boolean;
   }>("settings", {
     theme: "light",
-    blur: true,
+    blur: false,
     showDock: true,
   });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

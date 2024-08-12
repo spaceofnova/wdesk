@@ -4,7 +4,6 @@ import { CSSProperties } from "react";
 const BlurDiv = ({
   children,
   style,
-  blurAmount,
   className,
 }: {
   children?: React.ReactElement | React.ReactElement[] | string;
@@ -15,12 +14,9 @@ const BlurDiv = ({
   const { settings } = useSettings();
   return (
     <div
-      className={className}
+      className={className + (settings.blur ? " yesblur" : " noblur")}
       style={{
         ...style,
-        backdropFilter: settings.blur
-          ? `blur(${blurAmount ?? 24}px)`
-          : undefined,
       }}
     >
       {children}

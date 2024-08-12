@@ -1,3 +1,3 @@
-export default function ExampleApp() {
-  return <div>Example App</div>
-}
+export const ExampleApp = () => {
+  return <div>Example App</div>;
+};

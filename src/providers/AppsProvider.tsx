@@ -1,10 +1,21 @@
 import AppsContext from "@/contexts/AppsContext";
 import defaultApps from "@/contexts/defaultApps";
 import installableApps from "@/store/installableApps";
-import { useState } from "react";
+import { useLocalStorage } from "@uidotdev/usehooks";
+import { useEffect, useState } from "react";
 
 const AppsProvider = ({ children }: { children: React.ReactNode }) => {
   const [apps, setApps] = useState(defaultApps);
+  const [localInstalls, setLocalInstalls] = useLocalStorage<
+    { id: string; version: string }[]
+  >("localInstalls", []);
+
+  useEffect(() => {
+    localInstalls.forEach((localInstall) => {
+      installApp(localInstall.id, localInstall.version);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const installApp = (id: string, version: string) => {
     if (apps.find((app) => app.id === id)) {
@@ -20,6 +31,7 @@ const AppsProvider = ({ children }: { children: React.ReactNode }) => {
           },
         ];
         setApps(newApps);
+        setLocalInstalls([...localInstalls, { id, version }]);
         return "App installed";
       }
     }
@@ -29,6 +41,9 @@ const AppsProvider = ({ children }: { children: React.ReactNode }) => {
     if (apps.find((app) => app.id === id)) {
       const newApps = apps.filter((app) => app.id !== id);
       setApps(newApps);
+      setLocalInstalls(
+        localInstalls.filter((localInstall) => localInstall.id !== id)
+      );
     }
   };
 

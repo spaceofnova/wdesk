@@ -1,8 +1,12 @@
 export interface App {
   name: string; // name of the app
   license?: string; // license of the app (MIT, Apache, etc) (optional)
+  permissions?: Permission[] | "all";
   id: string; // com.example.app or com.example.app.dev
-  icon: string; // You should use a webp or avif (For better performance)
+  icons: {
+    scalable: JSX.Element | React.ReactNode;
+    bitmap?: string | "png" | "jpg" | "jpeg" | "webp" | "tiff" | "bmp"; // If used use webp or avif for best performance
+  };
   description?: string; // description of the app (optional)
   component: JSX.Element | React.ReactNode;
 }
@@ -16,11 +20,15 @@ export interface AppsContextType {
 }
 
 export interface StoreApp {
+  permissions?: Permission[];
   name: string; // name of the app
   author: string; // author of the app
   license?: string; // license of the app (MIT, Apache, etc) (optional)
   id: string; // com.example.app or com.example.app.dev
-  icon: string; // You should use a webp or avif (For better performance)
+  icons: {
+    scalable: JSX.Element | React.ReactNode;
+    bitmap?: string | "png" | "jpg" | "jpeg" | "webp" | "tiff" | "bmp"; // If used use webp or avif for best performance
+  };
   description?: string; // description of the app (optional)
   tags?: {
     // used for variants of the app (Stable, Dev, etc) (optional)
@@ -40,3 +48,14 @@ export interface WindowType {
   zIndex?: number;
   component: JSX.Element | React.ReactNode;
 }
+
+type Permission =
+  | "apps.read" // Read apps
+  | "apps.write" // Write apps
+  | "apps.update" // Update apps
+  | "apps.install" // Install apps
+  | "apps.uninstall" // Uninstall apps
+  | "system.store.read" // Read system store
+  | "system.store.write" // Write system store
+  | "system.setting.read" // Read system settings
+  | "system.setting.write"; // Write system settings

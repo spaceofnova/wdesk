@@ -10,22 +10,25 @@ Feel free to contribute to it
 ### Finshed:
 
 - Basic window management
+- Automatic Data Saving via `LocalStorage`
 
 ### In Progress:
 
 - Settings
 - Store
 - Apps
-- Automatic Data Saving via `LocalStorage`
-
+- Icons
+- Themes
+- App Icons
+- App Pinning to the Dock
 
 ### Planned:
 
-- Icons
 - UI Styling
-- App Icons
-- Themes
-
+- Notifications
+- More Dock related stuff
+- Desktop Background Changing
+- Desktop move-able icons
 
 # License
 

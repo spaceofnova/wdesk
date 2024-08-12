@@ -48,7 +48,34 @@ h6 {
 
 /* CSS Start */
 :root {
-  background: url("https://images.unsplash.com/photo-1722973893256-85f1e22dc770?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+  background: url("https://images.unsplash.com/photo-1706941246318-11a186adcfda?q=100&w=1920&auto=format&fit=crop")
     center center / cover no-repeat fixed;
   overflow: hidden;
+  user-select: none;
+
+  --background: 0, 0%, 12%;
+  --foreground: #f0f0f0;
+  --border: #3a3a3a;
+  --primary: #009688;
+  --secondary: #009688;
+  --accent: #009688;
+}
+
+.light {
+  --background: 0, 0%, 85%;
+  --foreground: #1e1e1e;
+  --border: #3a3a3a;
+  --primary: #009688;
+  --secondary: #009688;
+  --accent: #009688;
+}
+
+.yesblur {
+  backdrop-filter: blur(24px);
+  background-color: hsla(var(--background), 0.85);
+}
+
+.noblur {
+  backdrop-filter: unset;
+  background-color: hsla(var(--background), 1);
 }
