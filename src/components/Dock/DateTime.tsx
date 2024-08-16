@@ -1,3 +1,4 @@
+import { LucideBell } from "lucide-react";
 import React from "react";
 
 export const DateTime = () => {
@@ -11,19 +12,24 @@ export const DateTime = () => {
     };
   }, []);
   return (
-    <div className="flex flex-col text-right justify-center hover:bg-white/20">
-      <div className="text-sm">
-        {date.toLocaleString("en-US", {
-          hour: "numeric",
-          minute: "2-digit",
-        })}
+    <div className="flex items-center justify-center gap-2 px-2 hover:bg-white/20">
+      <div className="flex flex-col justify-center text-right">
+        <div className="text-sm">
+          {date.toLocaleString("en-US", {
+            hour: "numeric",
+            minute: "2-digit",
+          })}
+        </div>
+        <div className="text-sm">
+          {date.toLocaleString("en-US", {
+            month: "short",
+            day: "2-digit",
+            year: "numeric",
+          })}
+        </div>
       </div>
-      <div className="text-sm">
-        {date.toLocaleString("en-US", {
-          month: "short",
-          day: "2-digit",
-          year: "numeric",
-        })}
+      <div>
+        <LucideBell className="h-5 w-5" />
       </div>
     </div>
   );

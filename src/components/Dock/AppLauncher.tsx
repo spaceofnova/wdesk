@@ -1,3 +1,4 @@
+import { easeOutExpo } from "@/constants";
 import { useApps } from "@/contexts/AppsContext";
 import { useSettings } from "@/contexts/SettingsContext";
 import { useWindows } from "@/contexts/WindowsContext";
@@ -11,7 +12,7 @@ const LauncherButton = () => {
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-center px-2 hover:bg-white/20 w-10 h-10 cursor-pointer"
+        className="flex h-10 w-10 cursor-pointer items-center justify-center px-2 hover:bg-white/20"
       >
         <LucideGrid2X2 />
       </button>
@@ -30,11 +31,12 @@ export const LauncherUI = ({ isOpen }: { isOpen: boolean }) => {
       <AnimatePresence>
         {isOpen && (
           <m.div
-            initial={{ left: -300 }}
-            animate={{ left: 0 }}
-            exit={{ left: -300 }}
+            initial={{ x: -300 }}
+            animate={{ x: 0 }}
+            exit={{ x: -300 }}
+            transition={{ duration: 0.4, ease: easeOutExpo }}
             className={
-              "fixed bottom-10 left-0 w-48 h-96 text-[var(--foreground)]" +
+              "fixed bottom-14 left-2 h-96 w-48 text-[var(--foreground)]" +
               (settings.blur ? " yesblur" : " noblur")
             }
           >
@@ -42,7 +44,7 @@ export const LauncherUI = ({ isOpen }: { isOpen: boolean }) => {
               {apps.map((app) => (
                 <div
                   key={app.id}
-                  className="flex items-center w-full h-10 hover:bg-white/20 cursor-pointer gap-2 px-2"
+                  className="flex h-10 w-full cursor-pointer items-center gap-2 px-2 hover:bg-white/20"
                   onClick={() => openWindow(app.id)}
                 >
                   <div>{app.icons.scalable ?? app.icons.bitmap}</div>

@@ -14,7 +14,11 @@ const BlurDiv = ({
   const { settings } = useSettings();
   return (
     <div
-      className={className + (settings.blur ? " yesblur" : " noblur")}
+      className={
+        className +
+        (settings.blur ? " yesblur" : " noblur") +
+        " transition-colors"
+      }
       style={{
         ...style,
       }}

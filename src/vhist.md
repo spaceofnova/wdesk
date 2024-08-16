@@ -40,3 +40,14 @@
 - Changed:
   - Changed the way apps are installed and uninstalled
   - App installed Detection
+
+## 0.2.1
+
+- Added:
+  - App Active indicator
+- Changed:
+  - Changed the way apps are installed and uninstalled
+- Bug fixes:
+  - Fixed the window component not being able to be dragged
+  - Fixed the window component not being able to be resized
+  - Some minor bugs
