@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/UI/select";
-import { useApps } from "@/contexts/AppsContext";
+import useAppsStore from "@/contexts/AppsContext";
 import { StoreApp } from "@/types";
 import { useState } from "react";
 
@@ -20,7 +20,7 @@ const AppPopup = ({
   const [selectedVersion, setSelectedVersion] = useState<string>(
     Object.keys(app.versions)[0],
   );
-  const { installApp, checkIfAppIsInstalled, uninstallApp } = useApps();
+  const { installApp, checkIfAppIsInstalled, uninstallApp } = useAppsStore();
 
   return (
     <div className="absolute left-0 top-0 h-full w-full bg-background">

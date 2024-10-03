@@ -64,14 +64,13 @@
     @apply border-border;
   }
   body {
+    @apply bg-background;
     @apply text-foreground;
   }
 }
 
 /* CSS Start */
 :root {
-  background: url("https://images.unsplash.com/photo-1706941246318-11a186adcfda?q=100&w=1920&auto=format&fit=crop")
-    center center / cover no-repeat fixed;
   overflow: hidden;
   user-select: none;
 }

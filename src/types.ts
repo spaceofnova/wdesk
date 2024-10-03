@@ -2,6 +2,7 @@ export interface App {
   name: string; // name of the app
   license?: string; // license of the app (MIT, Apache, etc) (optional)
   permissions?: Permission[] | "all";
+  hidden?: boolean; // if the app is hidden (Only system apps can be hidden)
   id: string; // com.example.app or com.example.app.dev
   icons: {
     scalable: JSX.Element | React.ReactNode;

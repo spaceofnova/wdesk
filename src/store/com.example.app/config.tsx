@@ -7,7 +7,7 @@ const Config: StoreApp = {
   id: "com.example.app",
   author: "spaceofnova",
   icons: {
-    scalable: <InfoIcon />,
+    scalable: <InfoIcon style={{ width: "100%", height: "100%" }} />,
   },
   description: "Example app description",
   versions: {

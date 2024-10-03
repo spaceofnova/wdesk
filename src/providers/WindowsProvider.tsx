@@ -1,12 +1,12 @@
 import WindowsContext from "@/contexts/WindowsContext";
 import { useState } from "react";
 import { WindowType } from "@/types";
-import { useApps } from "@/contexts/AppsContext";
+import useAppsStore from "@/contexts/AppsContext";
 
 const WindowsProvider = ({ children }: { children: React.ReactNode }) => {
   const [windows, setWindows] = useState<WindowType[]>([]);
   const [maxZIndex, setMaxZIndex] = useState(0);
-  const { apps } = useApps();
+  const { apps } = useAppsStore();
 
   const closeWindow = (applicationId: string) => {
     const newWindows = windows.filter((window) => window.id !== applicationId);

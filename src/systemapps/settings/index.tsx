@@ -1,8 +1,30 @@
 import { useTheme } from "@/components/theme-provider";
-import { useSettings } from "@/contexts/SettingsContext";
+import { useStorage } from "@/contexts/StorageContext";
 
+
+import { create } from 'zustand'
+
+type Store = {
+  count: number
+  inc: () => void
+}
+
+const useStore = create<Store>()((set) => ({
+  count: 1,
+  inc: () => set((state) => ({ count: state.count + 1 })),
+}))
+
+function Counter() {
+  const { count, inc } = useStore()
+  return (
+    <div>
+      <span>{count}</span>
+      <button onClick={inc}>one up</button>
+    </div>
+  )
+}
 export default function Settings() {
-  const { settings, updateSetting } = useSettings();
+  const { storage, updateStorage } = useStorage();
   const { theme, setTheme } = useTheme();
   return (
     <div>
@@ -10,16 +32,16 @@ export default function Settings() {
       <label>
         <input
           type="checkbox"
-          checked={settings.showDock}
-          onChange={() => updateSetting("showDock", !settings.showDock)}
+          checked={storage.showDock}
+          onChange={() => updateStorage("showDock", !storage.showDock)}
         />
         Show Dock
       </label>
       <label>
         <input
           type="checkbox"
-          checked={settings.blur}
-          onChange={() => updateSetting("blur", !settings.blur)}
+          checked={storage.blur}
+          onChange={() => updateStorage("blur", !storage.blur)}
         />
         Blur
       </label>
@@ -45,6 +67,9 @@ export default function Settings() {
           />
           Dark
         </label>
+      </div>
+      <div>
+        <Counter />
       </div>
     </div>
   );

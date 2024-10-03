@@ -51,3 +51,19 @@
   - Fixed the window component not being able to be dragged
   - Fixed the window component not being able to be resized
   - Some minor bugs
+
+## 0.3.0
+
+- Added:
+  - New UI
+  - New Panel Component that can be used to make panels for docks, widgets, etc.
+  - Overall UI styling changes
+  - Added Widgets: Date and Time, Fullscreen Launcher, App Launcher, Window Options menu
+  - Notifications! Apps can request to send notifications to the user
+    - Notifications are displayed in the top right corner of the screen
+    - Notifications can be dismissed by clicking on them or the X button
+  - Lock Screen!
+  - Faster Boot up times! (1.5x faster!)
+- Changed:
+  - Changed the way apps are installed and uninstalled
+  - A new boot-up process has been added to the app to load stuff
